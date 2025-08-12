@@ -62,7 +62,6 @@
         }
         /* Class to enable touch scrolling on iOS for the iframe */
         .ios-scroll-container {
-            position: relative; /* Helps iOS establish a scrolling context */
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -140,15 +139,21 @@
                     <div class="w-full flex flex-wrap items-center justify-center gap-8">
                         <!-- Portfolio Item 1 -->
                         <div class="w-64 h-96 bg-slate-200 rounded-xl p-1.5 ios-scroll-container shadow-2xl">
-                            <iframe scrolling="auto" class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/farmersdaughterhotelguide/" title="The Farmer's Daughter Hotel" sandbox="allow-scripts allow-same-origin"></iframe>
+                            <div class="h-full w-full">
+                                <iframe scrolling="auto" class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/farmersdaughterhotelguide/" title="The Farmer's Daughter Hotel" sandbox="allow-scripts allow-same-origin"></iframe>
+                            </div>
                         </div>
                         <!-- Portfolio Item 2 -->
                         <div class="w-64 h-96 bg-slate-200 rounded-xl p-1.5 ios-scroll-container shadow-2xl">
-                            <iframe scrolling="auto" class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/thesaguarohidewayguide/" title="The Saguaro Hideaway" sandbox="allow-scripts allow-same-origin"></iframe>
+                            <div class="h-full w-full">
+                                <iframe scrolling="auto" class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/thesaguarohidewayguide/" title="The Saguaro Hideaway" sandbox="allow-scripts allow-same-origin"></iframe>
+                            </div>
                         </div>
                         <!-- Portfolio Item 3 -->
                         <div class="w-64 h-96 bg-slate-200 rounded-xl p-1.5 ios-scroll-container shadow-2xl">
-                            <iframe scrolling="auto" class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/orionandlryawedding/" title="Orion & Lyra's Wedding" sandbox="allow-scripts allow-same-origin"></iframe>
+                             <div class="h-full w-full">
+                                <iframe scrolling="auto" class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/orionandlryawedding/" title="Orion & Lyra's Wedding" sandbox="allow-scripts allow-same-origin"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
