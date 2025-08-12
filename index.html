@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" x-data="appState" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charchee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Updated font to 'Dancing Script' -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .content-pane {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .content-pane.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        .nav-button.active {
+            color: #f8fafc; /* slate-50 */
+            font-weight: 700;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding-top 0.5s ease-in-out, padding-bottom 0.5s ease-in-out;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .flag-btn {
+            transition: all 0.2s ease-in-out;
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        .flag-btn.active {
+            opacity: 1.0;
+            transform: scale(1.1);
+        }
+        /* Class for the new headline font */
+        .font-dancing-script {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+        }
+        /* Class to enable touch scrolling on iOS for the iframe */
+        .ios-scroll-container {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+    <!-- Load Alpine.js for interactivity -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-slate-900 text-slate-200" x-data="appState" x-init="translatePage()">
+
+    <!-- UI Controls -->
+     <div class="fixed top-4 left-4 z-50 flex items-center space-x-3 p-2 bg-slate-800/50 backdrop-blur-sm rounded-full">
+        <!-- Language Switcher -->
+        <div id="lang-switcher" class="flex space-x-2">
+            <button @click="setLang('en')" class="flag-btn rounded-full w-8 h-8 flex items-center justify-center overflow-hidden" :class="{ 'active': lang === 'en' }" title="English">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 48"><path fill="#fff" d="M0 0h72v48H0z"/><path fill="#b22234" d="M0 0h72v4H0zm0 8h72v4H0zm0 16h72v4H0zm0 24h72v4H0zm0 32h72v4H0zm0 40h72v4H0z"/><path fill="#3c3b6e" d="M0 0h36v28H0z"/><path fill="#fff" d="m6 4 1.3 4H12l-3.3 2.5 1.3 4-3.3-2.5-3.3 2.5 1.3-4L2 8h4.7zm12 0 1.3 4H24l-3.3 2.5 1.3 4-3.3-2.5-3.3 2.5 1.3-4L14 8h4.7zm12 0 1.3 4H36l-3.3 2.5 1.3 4-3.3-2.5-3.3 2.5 1.3-4L26 8h4.7zm-18 8 1.3 4H18l-3.3 2.5 1.3 4-3.3-2.5-3.3 2.5 1.3-4L8 16h4.7zm12 0 1.3 4H30l-3.3 2.5 1.3 4-3.3-2.5-3.3 2.5 1.3-4L20 16h4.7zm-18 8 1.3 4H12l-3.3 2.5 1.3 4-3.3-2.5-3.3 2.5 1.3-4L2 24h4.7zm12 0 1.3 4H24l-3.3 2.5 1.3 4-3.3-2.5-3.3 2.5 1.3-4L14 24h4.7zm12 0 1.3 4H36l-3.3 2.5 1.3 4-3.3-2.5-3.3 2.5 1.3-4L26 24h4.7z"/></svg>
+            </button>
+            <button @click="setLang('es')" class="flag-btn rounded-full w-8 h-8 flex items-center justify-center overflow-hidden" :class="{ 'active': lang === 'es' }" title="Español">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 15"><path fill="#fff" d="M0 0h25v15H0z"/><path fill="#006847" d="M0 0h8.33v15H0z"/><path fill="#ce1126" d="M16.67 0H25v15h-8.33z"/><path fill="#8a684c" d="m11.53 5.43-1.16 2.89c-.11.26.04.56.31.64l.8.24c-.09.3-.12.61-.12.93 0 1.25.76 2.33 1.85 2.8l-.21.06c-.27.08-.42.38-.31.64l.58 1.44c.11.26.41.42.68.34l.21-.06a3.5 3.5 0 0 0 1.33 0l.21.06c.27.08.57-.08.68-.34l.58-1.44c.11-.26-.04-.56-.31-.64l-.21-.06c1.09-.47 1.85-1.55 1.85-2.8 0-.32-.03-.63-.12-.93l.8-.24c.27-.08.42-.38.31-.64l-1.16-2.89c-.11-.26-.41-.42-.68-.34l-.21.06a3.5 3.5 0 0 0-4.66 0l-.21-.06c-.27-.08-.57.08-.68-.34z"/><path fill="#3a75c4" d="M12.5 12.25a3.25 3.25 0 0 0 1.25-6.28.75.75 0 0 1-1-1.25 1.75 1.75 0 0 0-2.5 2.44.75.75 0 0 1 .5 1.34 3.25 3.25 0 0 0 1.75 3.75z"/><path fill="#fff" d="M12.5 6.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5z"/></svg>
+            </button>
+            <button @click="setLang('zh')" class="flag-btn rounded-full w-8 h-8 flex items-center justify-center overflow-hidden" :class="{ 'active': lang === 'zh' }" title="中文">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40"><path fill="#de2910" d="M0 0h60v40H0z"/><path fill="#ffde00" d="m10 8 1.85 5.7h6L13.15 17l1.85 5.7-4.7-3.8-4.7 3.8 1.85-5.7L2.8 13.7h6zm10 2 1.1.8-1-1.2.7-1.3-.8 1.2-1.3-.6 1.2.8-.2 1.4zm5 5 .2 1.4-1.3-.6L25 19l-1.1-.8.7 1.3-1 1.2 1.2-.8zM23.5 23l-.8-1.2.7 1.3.2-1.4-1.3.6.2 1.4 1.1-.8-1 1.2zM18 21l1.2-.8-1.3-.6.7-1.3-1.1.8-1-1.2.2 1.4 1.2.8z"/></svg>
+            </button>
+        </div>
+    </div>
+    
+    <div class="h-full w-full flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-6xl text-center">
+            <!-- Main Header -->
+            <div class="mb-12">
+                <!-- Updated h1 with new name -->
+                <h1 class="text-6xl md:text-8xl font-dancing-script text-slate-50" data-lang="hubHeadline">Charchee.</h1>
+                <!-- Updated tagline -->
+                <p class="mt-4 text-base md:text-lg text-slate-400 tracking-wider" data-lang="hubTagline">Show. Don't tell.</p>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg text-slate-400 border-b border-slate-700 pb-8">
+                <button @click="activePane = 'about'" class="nav-button hover:text-amber-400" :class="{'active text-amber-400': activePane === 'about'}" data-lang="navAbout">About Us</button>
+                <button @click="activePane = 'work'" class="nav-button hover:text-amber-400" :class="{'active text-amber-400': activePane === 'work'}" data-lang="navWork">The Work</button>
+                <button @click="activePane = 'inquiries'" class="nav-button hover:text-amber-400" :class="{'active text-amber-400': activePane === 'inquiries'}" data-lang="navInquiries">Inquiries</button>
+            </nav>
+
+            <!-- Content Area -->
+            <div class="relative h-96 mt-8 flex items-center justify-center">
+                <!-- Pane 1: About Us (Accordion) -->
+                <div class="content-pane" :class="{ 'active': activePane === 'about' }">
+                    <div class="max-w-3xl w-full mx-auto" x-data="{ open: true }">
+                        <div class="accordion-item border-b border-slate-700" :class="{'active': open}">
+                            <button @click="open = !open" class="w-full flex justify-between items-center py-3">
+                                <h3 class="text-2xl font-bold text-slate-50" data-lang="aboutTitle">What is a Charchee?</h3>
+                                <svg class="w-6 h-6 text-slate-400 transition-transform transform" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="accordion-content px-2">
+                                <div class="text-slate-300 space-y-4 leading-relaxed" data-lang="aboutBody">
+                                    <!-- Content is injected by script -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pane 2: The Work (Grid Display) -->
+                <div class="content-pane" :class="{ 'active': activePane === 'work' }">
+                    <div class="w-full flex flex-wrap items-center justify-center gap-8">
+                        <!-- Portfolio Item 1 -->
+                        <div class="w-64 h-96 bg-slate-200 rounded-xl p-1.5 ios-scroll-container shadow-2xl">
+                            <iframe class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/farmersdaughterhotelguide/" title="The Farmer's Daughter Hotel" sandbox="allow-scripts allow-same-origin"></iframe>
+                        </div>
+                        <!-- Portfolio Item 2 -->
+                        <div class="w-64 h-96 bg-slate-200 rounded-xl p-1.5 ios-scroll-container shadow-2xl">
+                            <iframe class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/thesaguarohidewayguide/" title="The Saguaro Hideaway" sandbox="allow-scripts allow-same-origin"></iframe>
+                        </div>
+                        <!-- Portfolio Item 3 -->
+                        <div class="w-64 h-96 bg-slate-200 rounded-xl p-1.5 ios-scroll-container shadow-2xl">
+                            <iframe class="rounded-lg w-full h-full" src="https://hellocharchee.github.io/orionandlryawedding/" title="Orion & Lyra's Wedding" sandbox="allow-scripts allow-same-origin"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pane 3: Inquiries -->
+                <div class="content-pane" :class="{ 'active': activePane === 'inquiries' }">
+                    <div class="max-w-4xl flex flex-col md:flex-row items-center gap-12">
+                        <div class="md:w-1/3 flex-shrink-0">
+                            <div class="w-48 h-48 mx-auto rounded-full shadow-lg">
+                               <img src="https://i.imgur.com/8VZfqhg.jpeg" class="rounded-full w-full h-full object-cover" alt="Founder" onerror="this.onerror=null;this.src='https://placehold.co/192x192/1e293b/f8fafc?text=Founder';">
+                            </div>
+                        </div>
+                        <div class="md:w-2/3 text-center md:text-left">
+                            <p class="text-lg text-slate-300 leading-relaxed mb-6" data-lang="founderBody">I'm the Founder and Creative Director at Charchee. We specialize in building intuitive digital experiences that help businesses communicate with absolute clarity.</p>
+                            <p class="text-lg text-slate-200 font-semibold">
+                                <span data-lang="connectContact">Contact us at:</span>
+                                <a href="mailto:hellocharchee@gmail.com" class="text-amber-400 underline hover:text-amber-500">hellocharchee@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('appState', () => ({
+                activePane: 'about',
+                lang: 'en',
+                translations: {
+                    en: {
+                        hubHeadline: "Charchee.", hubTagline: "Show. Don't tell.", navAbout: "About Us", navWork: "The Work", navInquiries: "Inquiries",
+                        aboutTitle: "What is a Charchee?",
+                        aboutBody: `<p>Charchee, was a Charlie, and that Charlie was a handsome black and white cat that got to live on this Earth with me for fourteen years. And the thing about pets, even Charlie, is they are a way for us to orient ourselves in the world. The days can be long and there could be a thousand things happening at once. And we all have a “charchee” we focus on for a moment and love and then we know where we are and everything comes back together again.</p><p>Charlie was always that for me. A way of the world coming back together and making sense.</p><p>Charchee aims to do just that, make sense of the world again. No matter how confusing, or complicated, or whatever adjective you want to use to describe things that can be generally, immensely confusing.</p><p>Charchee is here for you. Charchee knows the way.</p>`,
+                        founderBody: "I'm the Founder and Creative Director at Charchee. We specialize in building intuitive digital experiences that help businesses communicate with absolute clarity.",
+                        connectContact: "Contact us at:",
+                    },
+                    es: {
+                        hubHeadline: "Charchee.", hubTagline: "Muestra. No cuentes.", navAbout: "Sobre Nosotros", navWork: "El Trabajo", navInquiries: "Consultas",
+                        aboutTitle: "¿Qué es un Charchee?",
+                        aboutBody: `<p>Charchee, era un Charlie, y ese Charlie era un hermoso gato blanco y negro que vivió en esta Tierra conmigo durante catorce años. Y lo que pasa con las mascotas, incluso con Charlie, es que son una forma de orientarnos en el mundo. Los días pueden ser largos y pueden pasar mil cosas a la vez. Y todos tenemos un "charchee" en el que nos enfocamos por un momento y amamos, y entonces sabemos dónde estamos y todo vuelve a unirse.</p><p>Charlie siempre fue eso para mí. Una forma de que el mundo volviera a unirse y tuviera sentido.</p><p>Charchee tiene como objetivo hacer precisamente eso, hacer que el mundo vuelva a tener sentido. No importa cuán confuso, complicado o cualquier adjetivo que quieras usar para describir cosas que pueden ser en general, inmensamente confusas.</p><p>Charchee está aquí para ti. Charchee sabe el camino.</p>`,
+                        founderBody: "Soy el Fundador y Director Creativo de Charchee. Nos especializamos en crear experiencias digitales intuitivas que ayudan a las empresas a comunicarse con absoluta claridad.",
+                        connectContact: "Contáctanos en:",
+                    },
+                    zh: {
+                        hubHeadline: "Charchee.", hubTagline: "展示，而非讲述。", navAbout: "关于我们", navWork: "作品", navInquiries: "咨询",
+                        aboutTitle: "什么是Charchee？",
+                        aboutBody: `<p>Charchee，曾经是一只叫Charlie的猫，那只英俊的黑白猫和我一起在这个地球上生活了十四年。关于宠物，即使是Charlie，它们也是我们在世界上定位自己的一种方式。日子可能很长，可能同时发生一千件事。我们都有一个“charchee”，我们专注于它片刻，爱着它，然后我们就知道自己身在何处，一切又重新组合在一起。</p><p>Charlie对我来说一直如此。是世界重新组合并变得有意义的一种方式。</p><p>Charchee的目标正是如此，让世界再次变得有意义。无论多么混乱、复杂，或者你想用任何形容词来描述那些通常可能非常令人困惑的事情。</p><p>Charchee在这里为你服务。Charchee知道路。</p>`,
+                        founderBody: "我是Charchee的创始人和创意总监。我们专注于构建直观的数字体验，帮助企业以绝对的清晰度进行沟通。",
+                        connectContact: "联系我们：",
+                    }
+                },
+                init() {
+                    this.translatePage();
+                },
+                setLang(newLang) {
+                    this.lang = newLang;
+                    this.translatePage();
+                },
+                translatePage() {
+                    document.querySelectorAll('[data-lang]').forEach(el => {
+                        const key = el.dataset.lang;
+                        if (this.translations[this.lang] && this.translations[this.lang][key]) {
+                            // Use innerHTML to render the <p> tags correctly from the translation string
+                            if (key === 'aboutBody') {
+                                el.innerHTML = this.translations[this.lang][key];
+                            } else {
+                                el.innerText = this.translations[this.lang][key];
+                            }
+                        }
+                    });
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
