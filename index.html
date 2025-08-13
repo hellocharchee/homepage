@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+a<!DOCTYPE html>
 <html lang="en" x-data="appState" class="dark">
 <head>
     <meta charset="UTF-8">
@@ -71,12 +71,10 @@
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
             text-align: center;
-            cursor: pointer; /* Add cursor to indicate it's clickable */
         }
         .revealed .initial-view {
             top: 7rem; /* Adjust this value to control final top position */
             transform: translate(-50%, -50%) scale(0.6);
-            cursor: default;
         }
         .hidden-content {
             opacity: 0;
@@ -100,11 +98,13 @@
 </head>
 <body class="bg-slate-900 text-slate-200" 
       x-data="{ revealed: false }" 
+      @click.once="revealed = true" 
+      @touchstart.window.once="revealed = true"
       :class="{ 'revealed': revealed }"
       :style="{ overflow: revealed ? 'auto' : 'hidden' }" 
       x-init="translatePage()">
 
-    <div class="initial-view" @click.once="revealed = true">
+    <div class="initial-view">
         <h1 class="text-6xl md:text-9xl font-dancing-script text-slate-50" data-lang="hubHeadline">Charchee.</h1>
         <p class="mt-4 text-base md:text-2xl text-slate-400 tracking-wider" data-lang="hubTagline">Show. Don't tell.</p>
     </div>
