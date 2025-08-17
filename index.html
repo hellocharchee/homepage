@@ -67,7 +67,7 @@
             transform: translate(-50%, -50%);
             width: 100%;
             text-align: center;
-            z-index: 20;
+            z-index: 30;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .initial-view {
@@ -93,10 +93,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
             padding: 1rem;
+            padding-top: 10rem; /* Push content down to avoid header overlap */
         }
+        .header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8rem; /* Match the final top position + padding */
+            background-color: #0f172a; /* bg-slate-900 */
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .revealed .header-bar {
+            opacity: 1;
+        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script>
@@ -122,6 +136,7 @@
     </div>
 
     <div class="hidden-content">
+        <div class="header-bar"></div>
         <!-- UI Controls -->
          <div class="fixed top-4 left-4 z-50 flex items-center space-x-3 p-2 bg-slate-800/50 backdrop-blur-sm rounded-full">
             <div id="lang-switcher" class="flex space-x-2">
@@ -137,7 +152,7 @@
             </div>
         </div>
         
-        <div class="main-container pt-48" x-data="appState">
+        <div class="main-container" x-data="appState">
             <div class="w-full max-w-6xl text-center">
                 <!-- Navigation -->
                 <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg text-slate-400 border-b border-slate-700 pb-8">
