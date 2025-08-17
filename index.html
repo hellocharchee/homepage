@@ -13,9 +13,16 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            font-family: 'Lato', sans-serif; /* Updated font */
+            font-family: 'Lato', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+        /* --- Font Flicker Fix --- */
+        .initial-view {
+            visibility: hidden; /* Hide the text initially */
+        }
+        .fonts-loaded .initial-view {
+            visibility: visible; /* Show it only when fonts are ready */
         }
         .content-pane {
             position: absolute;
@@ -61,16 +68,16 @@
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
             text-align: center;
-            cursor: pointer; /* Add cursor to indicate it's clickable */
+            cursor: pointer;
         }
         .revealed .initial-view {
-            top: 7rem; /* Adjust this value to control final top position */
+            top: 7rem;
             transform: translate(-50%, -50%) scale(0.6);
             cursor: default;
         }
         .hidden-content {
             opacity: 0;
-            transition: opacity 0.8s ease-in-out 0.4s; /* Delay fade-in */
+            transition: opacity 0.8s ease-in-out 0.4s;
             pointer-events: none;
         }
         .revealed .hidden-content {
@@ -87,6 +94,12 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        // Font loading script to prevent FOUT
+        document.fonts.ready.then(function () {
+            document.body.classList.add('fonts-loaded');
+        });
+    </script>
 </head>
 <body class="bg-slate-900 text-slate-200" 
       x-data="{ revealed: false }" 
