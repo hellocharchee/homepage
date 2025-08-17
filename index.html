@@ -1,4 +1,4 @@
-a<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" x-data="appState" class="dark">
 <head>
     <meta charset="UTF-8">
@@ -34,16 +34,6 @@ a<!DOCTYPE html>
             color: #f8fafc; /* slate-50 */
             font-weight: 700;
         }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, padding-top 0.5s ease-in-out, padding-bottom 0.5s ease-in-out;
-        }
-        .accordion-item.active .accordion-content {
-            max-height: 500px;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
         .flag-btn {
             transition: all 0.2s ease-in-out;
             opacity: 0.5;
@@ -71,10 +61,12 @@ a<!DOCTYPE html>
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
             text-align: center;
+            cursor: pointer; /* Add cursor to indicate it's clickable */
         }
         .revealed .initial-view {
             top: 7rem; /* Adjust this value to control final top position */
             transform: translate(-50%, -50%) scale(0.6);
+            cursor: default;
         }
         .hidden-content {
             opacity: 0;
@@ -106,7 +98,7 @@ a<!DOCTYPE html>
 
     <div class="initial-view">
         <h1 class="text-6xl md:text-9xl font-dancing-script text-slate-50" data-lang="hubHeadline">Charchee.</h1>
-        <p class="mt-4 text-base md:text-2xl text-slate-400 tracking-wider" data-lang="hubTagline">Show. Don't tell.</p>
+        <p class="mt-4 text-base md:text-2xl text-slate-400 tracking-wider" data-lang="hubTagline">Smart. Simple. Succinct.</p>
     </div>
 
     <div class="hidden-content">
@@ -136,21 +128,12 @@ a<!DOCTYPE html>
 
                 <!-- Content Area -->
                 <div class="relative min-h-[24rem] mt-8 w-full flex items-center justify-center">
-                    <!-- Pane 1: About Us (Accordion) -->
+                    <!-- Pane 1: About Us -->
                     <div class="content-pane" :class="{ 'active': activePane === 'about' }">
-                        <div class="max-w-3xl w-full mx-auto" x-data="{ open: true }">
-                            <div class="accordion-item border-b border-slate-700" :class="{'active': open}">
-                                <button @click="open = !open" class="w-full flex justify-between items-center py-3">
-                                    <h3 class="text-2xl font-bold text-slate-50" data-lang="aboutTitle">What is a Charchee?</h3>
-                                    <svg class="w-6 h-6 text-slate-400 transition-transform transform" :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </button>
-                                <div class="accordion-content px-2">
-                                    <div class="text-slate-300 space-y-4 leading-relaxed" data-lang="aboutBody">
-                                        <!-- Content is injected by script -->
-                                    </div>
-                                </div>
+                        <div class="max-w-3xl w-full mx-auto text-left px-4">
+                            <h3 class="text-2xl font-bold text-amber-400 mb-4" data-lang="aboutTitle">Our Belief</h3>
+                            <div class="text-slate-300 space-y-4 leading-relaxed" data-lang="aboutBody">
+                                <!-- Content is injected by script -->
                             </div>
                         </div>
                     </div>
@@ -208,23 +191,23 @@ a<!DOCTYPE html>
                 lang: 'en',
                 translations: {
                     en: {
-                        hubHeadline: "Charchee.", hubTagline: "Show. Don't tell.", navAbout: "About Us", navWork: "The Work", navInquiries: "Inquiries",
-                        aboutTitle: "What is a Charchee?",
-                        aboutBody: `<p>Charchee, was a Charlie, and that Charlie was a handsome black and white cat that got to live on this Earth with me for fourteen years. And the thing about pets, even Charlie, is they are a way for us to orient ourselves in the world. The days can be long and there could be a thousand things happening at once. And we all have a “charchee” we focus on for a moment and love and then we know where we are and everything comes back together again.</p><p>Charlie was always that for me. A way of the world coming back together and making sense.</p><p>Charchee aims to do just that, make sense of the world again. No matter how confusing, or complicated, or whatever adjective you want to use to describe things that can be generally, immensely confusing.</p><p>Charchee is here for you. Charchee knows the way.</p>`,
+                        hubHeadline: "Charchee.", hubTagline: "Smart. Simple. Succinct.", navAbout: "About Us", navWork: "The Work", navInquiries: "Inquiries",
+                        aboutTitle: "Our Belief",
+                        aboutBody: `<p>We believe that true communication isn't about providing more information; it's about creating perfect comprehension.</p><p>The modern world is noisy. We are constantly flooded with details, instructions, and data. The real challenge isn't accessing information—it's processing it. We see the art in taking the complex and making it simple, taking the scattered and making it coherent.</p><p>We don't just build welcome guides. We are architects of understanding. Our work is to create a space where every piece of information is so clear and intuitive that it feels like the answer arrives the moment you think of the question.</p><p>That is our craft. That is our promise.</p>`,
                         founderBody: "I'm the Founder and Creative Director at Charchee. We specialize in building intuitive digital experiences that help businesses communicate with absolute clarity.",
                         connectContact: "Contact us at:",
                     },
                     es: {
-                        hubHeadline: "Charchee.", hubTagline: "Muestra. No cuentes.", navAbout: "Sobre Nosotros", navWork: "El Trabajo", navInquiries: "Consultas",
-                        aboutTitle: "¿Qué es un Charchee?",
-                        aboutBody: `<p>Charchee, era un Charlie, y ese Charlie era un hermoso gato blanco y negro que vivió en esta Tierra conmigo durante catorce años. Y lo que pasa con las mascotas, incluso con Charlie, es que son una forma de orientarnos en el mundo. Los días pueden ser largos y pueden pasar mil cosas a la vez. Y todos tenemos un "charchee" en el que nos enfocamos por un momento y amamos, y entonces sabemos dónde estamos y todo vuelve a unirse.</p><p>Charlie siempre fue eso para mí. Una forma de que el mundo volviera a unirse y tuviera sentido.</p><p>Charchee tiene como objetivo hacer precisamente eso, hacer que el mundo vuelva a tener sentido. No importa cuán confuso, complicado o cualquier adjetivo que quieras usar para describir cosas que pueden ser en general, inmensamente confusas.</p><p>Charchee está aquí para ti. Charchee sabe el camino.</p>`,
+                        hubHeadline: "Charchee.", hubTagline: "Inteligente. Simple. Sucinto.", navAbout: "Sobre Nosotros", navWork: "El Trabajo", navInquiries: "Consultas",
+                        aboutTitle: "Nuestra Creencia",
+                        aboutBody: `<p>Creemos que la verdadera comunicación no se trata de proporcionar más información; se trata de crear una comprensión perfecta.</p><p>El mundo moderno es ruidoso. Estamos constantemente inundados de detalles, instrucciones y datos. El verdadero desafío no es acceder a la información, es procesarla. Vemos el arte en tomar lo complejo y hacerlo simple, tomar lo disperso y hacerlo coherente.</p><p>No solo construimos guías de bienvenida. Somos arquitectos del entendimiento. Nuestro trabajo es crear un espacio donde cada pieza de información sea tan clara e intuitiva que se sienta como si la respuesta llegara en el momento en que piensas en la pregunta.</p><p>Ese es nuestro oficio. Esa es nuestra promesa.</p>`,
                         founderBody: "Soy el Fundador y Director Creativo de Charchee. Nos especializamos en crear experiencias digitales intuitivas que ayudan a las empresas a comunicarse con absoluta claridad.",
                         connectContact: "Contáctanos en:",
                     },
                     zh: {
-                        hubHeadline: "Charchee.", hubTagline: "展示，而非讲述。", navAbout: "关于我们", navWork: "作品", navInquiries: "咨询",
-                        aboutTitle: "什么是Charchee？",
-                        aboutBody: `<p>Charchee，曾经是一只叫Charlie的猫，那只英俊的黑白猫和我一起在这个地球上生活了十四年。关于宠物，即使是Charlie，它们也是我们在世界上定位自己的一种方式。日子可能很长，可能同时发生一千件事。我们都有一个“charchee”，我们专注于它片刻，爱着它，然后我们就知道自己身在何处，一切又重新组合在一起。</p><p>Charlie对我来说一直如此。是世界重新组合并变得有意义的一种方式。</p><p>Charchee的目标正是如此，让世界再次变得有意义。无论多么混乱、复杂，或者你想用任何形容词来描述那些通常可能非常令人困惑的事情。</p><p>Charchee在这里为你服务。Charchee知道路。</p>`,
+                        hubHeadline: "Charchee.", hubTagline: "智能。简单。简洁。", navAbout: "关于我们", navWork: "作品", navInquiries: "咨询",
+                        aboutTitle: "我们的信念",
+                        aboutBody: `<p>我们相信，真正的沟通不在于提供更多信息，而在于创造完美的理解。</p><p>现代世界是嘈杂的。我们不断被细节、说明和数据所淹没。真正的挑战不是获取信息，而是处理信息。我们看到了化繁为简、化零为整的艺术。</p><p>我们不只是制作欢迎指南。我们是理解的建筑师。我们的工作是创造一个空间，让每一条信息都如此清晰直观，感觉就像你一想到问题，答案就随之而来。</p><p>这是我们的手艺。这是我们的承诺。</p>`,
                         founderBody: "我是Charchee的创始人和创意总监。我们专注于构建直观的数字体验，帮助企业以绝对的清晰度进行沟通。",
                         connectContact: "联系我们：",
                     }
