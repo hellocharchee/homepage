@@ -60,20 +60,25 @@
         }
         
         /* --- Interactive Reveal Styles --- */
-        .initial-view {
+        .initial-view-container {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translate(-50%, -50%);
             width: 100%;
             text-align: center;
-            cursor: pointer;
+            z-index: 20;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .initial-view {
+            transform: scale(1);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .revealed .initial-view-container {
+            top: 4rem; /* Final position from top */
         }
         .revealed .initial-view {
-            top: 7rem;
-            transform: translate(-50%, -50%) scale(0.6);
-            cursor: default;
+            transform: scale(0.6);
         }
         .hidden-content {
             opacity: 0;
@@ -109,9 +114,11 @@
       :style="{ overflow: revealed ? 'auto' : 'hidden' }" 
       x-init="translatePage()">
 
-    <div class="initial-view">
-        <h1 class="text-6xl md:text-9xl font-dancing-script text-slate-50" data-lang="hubHeadline">Charchee.</h1>
-        <p class="mt-4 text-base md:text-2xl text-slate-400 tracking-wider" data-lang="hubTagline">Smart. Simple. Succinct.</p>
+    <div class="initial-view-container">
+        <div class="initial-view">
+            <h1 class="text-6xl md:text-9xl font-dancing-script text-slate-50" data-lang="hubHeadline">Charchee.</h1>
+            <p class="mt-4 text-base md:text-2xl text-slate-400 tracking-wider" data-lang="hubTagline">Smart. Simple. Succinct.</p>
+        </div>
     </div>
 
     <div class="hidden-content">
