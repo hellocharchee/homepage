@@ -7,13 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Lato', sans-serif; /* Updated font */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -122,7 +122,7 @@
                 <!-- Navigation -->
                 <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg text-slate-400 border-b border-slate-700 pb-8">
                     <button @click="activePane = 'about'" class="nav-button hover:text-amber-400" :class="{'active text-amber-400': activePane === 'about'}" data-lang="navAbout">About Us</button>
-                    <button @click="activePane = 'work'" class="nav-button hover:text-amber-400" :class="{'active text-amber-400': activePane === 'work'}" data-lang="navWork">The Work</button>
+                    <button @click="activePane = 'work'" class="nav-button hover:text-amber-400" :class="{'active text-amber-400': activePane === 'work'}" data-lang="navWork">Demos</button>
                     <button @click="activePane = 'inquiries'" class="nav-button hover:text-amber-400" :class="{'active text-amber-400': activePane === 'inquiries'}" data-lang="navInquiries">Inquiries</button>
                 </nav>
 
@@ -130,9 +130,9 @@
                 <div class="relative min-h-[24rem] mt-8 w-full flex items-center justify-center">
                     <!-- Pane 1: About Us -->
                     <div class="content-pane" :class="{ 'active': activePane === 'about' }">
-                        <div class="max-w-3xl w-full mx-auto text-left px-4">
-                            <h3 class="text-2xl font-bold text-amber-400 mb-4" data-lang="aboutTitle">Our Belief</h3>
-                            <div class="text-slate-300 space-y-4 leading-relaxed" data-lang="aboutBody">
+                        <div class="max-w-3xl w-full mx-auto px-4">
+                            <h3 class="text-2xl font-bold text-amber-400 mb-4 text-center" data-lang="aboutTitle">Our Laws</h3>
+                            <div class="text-slate-300 space-y-4 leading-relaxed text-left" data-lang="aboutBody">
                                 <!-- Content is injected by script -->
                             </div>
                         </div>
@@ -191,23 +191,23 @@
                 lang: 'en',
                 translations: {
                     en: {
-                        hubHeadline: "Charchee.", hubTagline: "Smart. Simple. Succinct.", navAbout: "About Us", navWork: "The Work", navInquiries: "Inquiries",
-                        aboutTitle: "Our Belief",
-                        aboutBody: `<p>We believe that true communication isn't about providing more information; it's about creating perfect comprehension.</p><p>The modern world is noisy. We are constantly flooded with details, instructions, and data. The real challenge isn't accessing information—it's processing it. We see the art in taking the complex and making it simple, taking the scattered and making it coherent.</p><p>We don't just build welcome guides. We are architects of understanding. Our work is to create a space where every piece of information is so clear and intuitive that it feels like the answer arrives the moment you think of the question.</p><p>That is our craft. That is our promise.</p>`,
+                        hubHeadline: "Charchee.", hubTagline: "Smart. Simple. Succinct.", navAbout: "About Us", navWork: "Demos", navInquiries: "Inquiries",
+                        aboutTitle: "Our Laws",
+                        aboutBody: `<p><strong class="text-amber-400">1. The Law of Comprehension.</strong> Information is worthless without understanding. Our purpose is not to add more, but to make what exists perfectly clear.</p><p><strong class="text-amber-400">2. The Law of Signal.</strong> In a world of noise, we are architects of signal. We find the essential and eliminate everything else.</p><p><strong class="text-amber-400">3. The Law of Intuition.</strong> A perfect experience is one where the answer arrives the moment the question is formed. Our work is to close that gap until it feels like magic.</p><p><strong class="text-amber-400">4. The Law of Coherence.</strong> We take the scattered and make it whole. We take the complex and make it simple. This is our craft. This is our promise.</p>`,
                         founderBody: "I'm the Founder and Creative Director at Charchee. We specialize in building intuitive digital experiences that help businesses communicate with absolute clarity.",
                         connectContact: "Contact us at:",
                     },
                     es: {
-                        hubHeadline: "Charchee.", hubTagline: "Inteligente. Simple. Sucinto.", navAbout: "Sobre Nosotros", navWork: "El Trabajo", navInquiries: "Consultas",
-                        aboutTitle: "Nuestra Creencia",
-                        aboutBody: `<p>Creemos que la verdadera comunicación no se trata de proporcionar más información; se trata de crear una comprensión perfecta.</p><p>El mundo moderno es ruidoso. Estamos constantemente inundados de detalles, instrucciones y datos. El verdadero desafío no es acceder a la información, es procesarla. Vemos el arte en tomar lo complejo y hacerlo simple, tomar lo disperso y hacerlo coherente.</p><p>No solo construimos guías de bienvenida. Somos arquitectos del entendimiento. Nuestro trabajo es crear un espacio donde cada pieza de información sea tan clara e intuitiva que se sienta como si la respuesta llegara en el momento en que piensas en la pregunta.</p><p>Ese es nuestro oficio. Esa es nuestra promesa.</p>`,
+                        hubHeadline: "Charchee.", hubTagline: "Inteligente. Simple. Sucinto.", navAbout: "Sobre Nosotros", navWork: "Demos", navInquiries: "Consultas",
+                        aboutTitle: "Nuestras Leyes",
+                        aboutBody: `<p><strong class="text-amber-400">1. La Ley de la Comprensión.</strong> La información no vale nada sin entendimiento. Nuestro propósito no es añadir más, sino hacer que lo que existe sea perfectamente claro.</p><p><strong class="text-amber-400">2. La Ley de la Señal.</strong> En un mundo de ruido, somos arquitectos de la señal. Encontramos lo esencial y eliminamos todo lo demás.</p><p><strong class="text-amber-400">3. La Ley de la Intuición.</strong> Una experiencia perfecta es aquella en la que la respuesta llega en el momento en que se forma la pregunta. Nuestro trabajo es cerrar esa brecha hasta que se sienta como magia.</p><p><strong class="text-amber-400">4. La Ley de la Coherencia.</strong> Tomamos lo disperso y lo hacemos completo. Tomamos lo complejo y lo hacemos simple. Este es nuestro oficio. Esta es nuestra promesa.</p>`,
                         founderBody: "Soy el Fundador y Director Creativo de Charchee. Nos especializamos en crear experiencias digitales intuitivas que ayudan a las empresas a comunicarse con absoluta claridad.",
                         connectContact: "Contáctanos en:",
                     },
                     zh: {
-                        hubHeadline: "Charchee.", hubTagline: "智能。简单。简洁。", navAbout: "关于我们", navWork: "作品", navInquiries: "咨询",
-                        aboutTitle: "我们的信念",
-                        aboutBody: `<p>我们相信，真正的沟通不在于提供更多信息，而在于创造完美的理解。</p><p>现代世界是嘈杂的。我们不断被细节、说明和数据所淹没。真正的挑战不是获取信息，而是处理信息。我们看到了化繁为简、化零为整的艺术。</p><p>我们不只是制作欢迎指南。我们是理解的建筑师。我们的工作是创造一个空间，让每一条信息都如此清晰直观，感觉就像你一想到问题，答案就随之而来。</p><p>这是我们的手艺。这是我们的承诺。</p>`,
+                        hubHeadline: "Charchee.", hubTagline: "智能。简单。简洁。", navAbout: "关于我们", navWork: "演示", navInquiries: "咨询",
+                        aboutTitle: "我们的法则",
+                        aboutBody: `<p><strong class="text-amber-400">1. 理解法则。</strong> 没有理解的信息是毫无价值的。我们的目的不是增加更多，而是让现有的东西变得完美清晰。</p><p><strong class="text-amber-400">2. 信号法则。</strong> 在一个充满噪音的世界里，我们是信号的建筑师。我们找到本质，剔除其他一切。</p><p><strong class="text-amber-400">3. 直觉法则。</strong> 一次完美的体验是问题形成的那一刻，答案就随之而来。我们的工作就是缩小这一差距，直到感觉像魔法一样。</p><p><strong class="text-amber-400">4. 连贯法则。</strong> 我们将零散的整合为整体。我们将复杂的简化。这是我们的手艺。这是我们的承诺。</p>`,
                         founderBody: "我是Charchee的创始人和创意总监。我们专注于构建直观的数字体验，帮助企业以绝对的清晰度进行沟通。",
                         connectContact: "联系我们：",
                     }
